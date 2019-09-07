@@ -1,7 +1,7 @@
 ##This Program is written by Abubakr Shafique (abubakr.shafique@gmail.com)
-
 import numpy as np
 import cv2 as cv
+from matplotlib import pyplot as plt
 
 #This Histogram Function Takes in a Mat Image and Calculate Histogram
 def Calculate_Histogram(Image):
@@ -19,6 +19,17 @@ def Calculate_Histogram(Image):
 			HistR[Image[x,y,2]] +=1 # increment the same intensity values in Red Channel
 	
 	return HistB, HistG, HistR #return the histogram
+	
+def Plot_Histogram(Histogram_Blue, Histogram_Green, Histogram_Red):
+	plt.figure()
+	plt.title("BGR Histogram")
+	plt.xlabel("Intensity Level")
+	plt.ylabel("Intensity Frequency")
+	plt.xlim([0, 256]) # Defined the limit of x-axis
+	plt.plot(Histogram_Blue, 'b')
+	plt.plot(Histogram_Green, 'g')
+	plt.plot(Histogram_Red, 'r')
+	plt.savefig("ColorImage_Histogram.jpg")
 
 def main():
 	Input_Image = cv.imread('Test_Image.png') #This will read an Image
@@ -30,6 +41,8 @@ def main():
 		print('HistogramGreen[',i,']: ', Histogram_Green[i])
 	for i in range(0,len(Histogram_Red)):
 		print('HistogramRed[',i,']: ', Histogram_Red[i])
+	Plot_Histogram(Histogram_Blue, Histogram_Green, Histogram_Red)	
+	input("Press Enter to continue...")
 
 
 if __name__ == '__main__':
